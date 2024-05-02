@@ -35,12 +35,14 @@ export const LeftSide: FunctionComponent<LeftSidePropsType> = ({
   category,
   setCategory,
 }) => {
+  // ................................................
   const onGoToNextMonthHandler = () => {
     setCurrentDate((prevDate) => prevDate.set("month", prevDate.month() + 1));
   };
   const onGoToPrevMonthHandler = () => {
     setCurrentDate((prevDate) => prevDate.set("month", prevDate.month() - 1));
   };
+  // ...........................................................
   return (
     <div className="h-screen p-4 w-[350px] bg-black text-white overflow-auto">
       <div className="flex justify-between items-center mb-8">

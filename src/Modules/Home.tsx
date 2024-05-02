@@ -42,6 +42,7 @@ export const HomeModule: FunctionComponent<HomeModulePropsType> = () => {
         setSelectedDate={setSelectedDate}
         selectedDate={selectedDate}
         currentDate={currentDate}
+        category={category}
       />
     </div>
   );

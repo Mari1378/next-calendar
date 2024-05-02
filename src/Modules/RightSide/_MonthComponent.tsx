@@ -63,6 +63,7 @@ export const MonthComponent: FunctionComponent<MonthComponentPropsType> = ({
                   >
                     {day ? day.get("D") : null}
                   </p>
+                  <ul></ul>
                 </div>
               );
             })}
