@@ -5,6 +5,7 @@ import { MonthComponent } from "./_MonthComponent";
 import { DayComponent } from "./_DayComponent";
 import { TodoType, todoReducer } from "@/utils/MakeTodo";
 import { Modal } from "./Modal/Modal";
+import { v4 as uuid } from "uuid";
 
 interface RightsidePropsType {
   setCurrentDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs>>;
@@ -27,28 +28,27 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
 }) => {
   const [isMonth, setIsMonth] = useState(true);
   const [todos, dispatch] = useReducer(todoReducer, initialTodo);
-  const [dateForAddTask, setDateForAddTask] = useState();
+  const [dateForAddTask, setDateForAddTask] = useState<dayjs.Dayjs>();
   const [titleOfTaskForEdit, setTitleOfTaskForEdit] = useState("");
   const [startTodo, setStartTodo] = useState("08:00:00");
   const [endTodo, setendTodo] = useState("09:00:00");
   // ..................................................
-  const addTodoHandler = (
-    startTodo: string,
-    endTodo: string,
-    taskTitle: string,
-    category: string,
-    Date: dayjs.Dayjs
-  ) => {
-    if (taskTitle) {
+  const addTodoHandler = ({
+    category,
+    endTime,
+    startTime,
+    title,
+  }: TodoType[number]) => {
+    if (title && dateForAddTask) {
       dispatch({
         type: "ADD",
         payload: {
           id: uuid(),
-          title: taskTitle,
+          title: title,
           Date: dateForAddTask,
           category: category,
-          startTime: startTodo,
-          endTime: endTodo,
+          startTime: startTime,
+          endTime: endTime,
         },
       });
       setDateForAddTask(undefined);

@@ -2,28 +2,19 @@ import React, { FunctionComponent } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "../../assets/icons/Icon";
 import { Calendar } from "./_Calendar";
 import dayjs from "dayjs";
-import { MakeCategory } from "./_MakeCategory";
+import { CategoryType, MakeCategory } from "./_MakeCategory";
 
 interface LeftSidePropsType {
   currentDate: dayjs.Dayjs;
   selectedDate: dayjs.Dayjs;
   onSelectedDay: (date: dayjs.Dayjs) => void;
   setCurrentDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs>>;
-  onAddCategoryHandler: (value: string, color: string) => void;
-  category: {
-    title: string;
-    id: string;
-    color: string;
-  }[];
-  setCategory: React.Dispatch<
-    React.SetStateAction<
-      {
-        title: string;
-        id: string;
-        color: string;
-      }[]
-    >
-  >;
+  onAddCategoryHandler: (
+    value: CategoryType[number]["title"],
+    color: CategoryType[number]["color"]
+  ) => void;
+  category: CategoryType;
+  setCategory: React.Dispatch<React.SetStateAction<CategoryType>>;
 }
 
 export const LeftSide: FunctionComponent<LeftSidePropsType> = ({

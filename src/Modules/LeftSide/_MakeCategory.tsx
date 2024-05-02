@@ -1,22 +1,14 @@
 import React, { FunctionComponent, useState } from "react";
 import { Categories } from "./_Categories";
-
+export type CategoryType = {
+  title: string;
+  id: string;
+  color: string;
+}[];
 interface MakeCategoryPropsType {
   onAddCategoryHandler: (value: string, color: string) => void;
-  category: {
-    title: string;
-    id: string;
-    color: string;
-  }[];
-  setCategory: React.Dispatch<
-    React.SetStateAction<
-      {
-        title: string;
-        id: string;
-        color: string;
-      }[]
-    >
-  >;
+  category: CategoryType;
+  setCategory: React.Dispatch<React.SetStateAction<CategoryType>>;
 }
 
 export const MakeCategory: FunctionComponent<MakeCategoryPropsType> = ({

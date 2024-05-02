@@ -1,11 +1,10 @@
 import { DeleteIcon } from "@/assets/icons/Icon";
 import React, { FunctionComponent } from "react";
-
-interface CategoriesPropsType {
-  id: string;
-  title: string;
-  color: string;
-  onDeleteCategoryHandler: (id: string) => void;
+import { CategoryType } from "./_MakeCategory";
+import { extend } from "dayjs";
+type CategoryObjectType = CategoryType[number];
+interface CategoriesPropsType extends CategoryObjectType {
+  onDeleteCategoryHandler: (id: CategoryObjectType["id"]) => void;
 }
 
 export const Categories: FunctionComponent<CategoriesPropsType> = ({
