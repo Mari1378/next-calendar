@@ -24,6 +24,7 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
   };
   const onDayHandler = () => {
     setIsMonth(false);
+    console.log("mari");
   };
   // ..................................................
   return (
