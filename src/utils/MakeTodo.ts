@@ -1,12 +1,13 @@
+import { CategoryType } from "@/Modules/LeftSide/_MakeCategory";
 import dayjs from "dayjs";
 
 export type TodoType = {
   id: string;
   title: string;
   Date: dayjs.Dayjs;
-  category: string;
-  startTime: number;
-  endTime: number;
+  category: CategoryType[number];
+  startTime: string;
+  endTime: string;
 }[];
 type TodoActionType =
   | {

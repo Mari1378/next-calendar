@@ -2,15 +2,28 @@ import React, { FunctionComponent } from "react";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import { calenderCreator } from "@/utils/Date";
-import { DiVim } from "react-icons/di";
+import { TodoType } from "@/utils/MakeTodo";
+import {
+  OnOpenModalForEditHandlerArgsType,
+  OnOpenModalHandlerArgType,
+} from "./Rightside";
 interface MonthComponentPropsType {
   currentDate: dayjs.Dayjs;
   selectedDate: dayjs.Dayjs;
+  onOpenModalHandler: (params: OnOpenModalHandlerArgType) => void;
+  todos: TodoType;
+  onOpenModalForEditHandler: ({
+    Date,
+    id,
+  }: OnOpenModalForEditHandlerArgsType) => void;
 }
 
 export const MonthComponent: FunctionComponent<MonthComponentPropsType> = ({
   currentDate,
   selectedDate,
+  onOpenModalHandler,
+  todos,
+  onOpenModalForEditHandler,
 }) => {
   // ...................................
   const dayOfWeek = [
@@ -44,6 +57,11 @@ export const MonthComponent: FunctionComponent<MonthComponentPropsType> = ({
               return (
                 <div
                   key={uuid()}
+                  onClick={() => {
+                    if (day) {
+                      onOpenModalHandler({ Date: day });
+                    }
+                  }}
                   className="text-l cursor-pointer text-gray-900 font-thin border border-gray-200  w-full flex items-center p-1 flex-col "
                 >
                   <p
@@ -63,7 +81,37 @@ export const MonthComponent: FunctionComponent<MonthComponentPropsType> = ({
                   >
                     {day ? day.get("D") : null}
                   </p>
-                  <ul></ul>
+                  <ul>
+                    {" "}
+                    {todos.map((todo) => {
+                      if (
+                        todo.Date.format("DD/MM/YYYY") !==
+                        day?.format("DD/MM/YYYY")
+                      )
+                        return null;
+                      return (
+                        <li
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            onOpenModalForEditHandler({
+                              Date: day,
+                              id: todo.id,
+                            });
+                          }}
+                          key={todo.id}
+                          className="flex items-center gap-1"
+                        >
+                          <div
+                            className="w-4 h-4 rounded-2xl"
+                            style={{
+                              backgroundColor: todo.category.color,
+                            }}
+                          ></div>
+                          <p>{todo.title}</p>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               );
             })}

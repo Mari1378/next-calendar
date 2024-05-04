@@ -6,7 +6,10 @@ export type CategoryType = {
   color: string;
 }[];
 interface MakeCategoryPropsType {
-  onAddCategoryHandler: (value: string, color: string) => void;
+  onAddCategoryHandler: (
+    value: CategoryType[number]["title"],
+    color: CategoryType[number]["color"]
+  ) => void;
   category: CategoryType;
   setCategory: React.Dispatch<React.SetStateAction<CategoryType>>;
 }

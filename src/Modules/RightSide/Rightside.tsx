@@ -6,18 +6,25 @@ import { DayComponent } from "./_DayComponent";
 import { TodoType, todoReducer } from "@/utils/MakeTodo";
 import { Modal } from "./Modal/Modal";
 import { v4 as uuid } from "uuid";
+import { CategoryType } from "../LeftSide/_MakeCategory";
 
 interface RightsidePropsType {
   setCurrentDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs>>;
   setSelectedDate: React.Dispatch<React.SetStateAction<dayjs.Dayjs>>;
   selectedDate: dayjs.Dayjs;
   currentDate: dayjs.Dayjs;
-  category: {
-    title: string;
-    id: string;
-    color: string;
-  }[];
+  category: CategoryType;
+  onSelectedDay: (date: dayjs.Dayjs) => void;
 }
+export type OnOpenModalHandlerArgType = {
+  Date: TodoType[number]["Date"];
+  startTime?: TodoType[number]["startTime"];
+  endTime?: TodoType[number]["endTime"];
+};
+export type OnOpenModalForEditHandlerArgsType = {
+  Date: TodoType[number]["Date"];
+  id: TodoType[number]["id"];
+};
 const initialTodo: TodoType = [];
 export const Rightside: FunctionComponent<RightsidePropsType> = ({
   setCurrentDate,
@@ -25,6 +32,7 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
   selectedDate,
   currentDate,
   category,
+  onSelectedDay: onSelectedDayHandler,
 }) => {
   const [isMonth, setIsMonth] = useState(true);
   const [todos, dispatch] = useReducer(todoReducer, initialTodo);
@@ -79,6 +87,32 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
     setendTodo("09:00:00");
   };
   // ..................................................
+
+  const onOpenModalHandler = ({
+    Date,
+    startTime,
+    endTime,
+  }: OnOpenModalHandlerArgType) => {
+    if (startTime && endTime) {
+      setStartTodo(startTime);
+      setendTodo(endTime);
+    }
+    setDateForAddTask(Date);
+    if (Date != null) onSelectedDayHandler(Date);
+  };
+  const onOpenModalForEditHandler = ({
+    Date,
+    id,
+  }: OnOpenModalForEditHandlerArgsType) => {
+    setDateForAddTask(Date);
+    const findTodos = todos.find((item) => {
+      return item.id === id;
+    });
+    if (findTodos) {
+      setTitleOfTaskForEdit(findTodos.title);
+    }
+  };
+  // ..................................................
   const onMonthHandler = () => {
     setIsMonth(true);
   };
@@ -96,7 +130,13 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
         onDayHandler={onDayHandler}
       />
       {isMonth ? (
-        <MonthComponent currentDate={currentDate} selectedDate={selectedDate} />
+        <MonthComponent
+          currentDate={currentDate}
+          selectedDate={selectedDate}
+          onOpenModalHandler={onOpenModalHandler}
+          todos={todos}
+          onOpenModalForEditHandler={onOpenModalForEditHandler}
+        />
       ) : (
         <DayComponent />
       )}
