@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import dayjs from "dayjs";
 import { ModalPropsType } from "./ModalPropsType";
-import { CloseIcon, DeleteIcon } from "@/assets/icons/Icon";
+import { CloseIcon, DeleteIcon, Minus } from "@/assets/icons/Icon";
 
 export const Modal: FunctionComponent<ModalPropsType> = ({
   category,
@@ -18,7 +18,7 @@ export const Modal: FunctionComponent<ModalPropsType> = ({
   setTitleOfTaskForEdit,
 }) => {
   const [inputValue, setInputValue] = useState(defaultInputValue);
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState(category[0]);
   // ............................................
   const onCloseModalHandler = () => {
     setDateForAddTask(undefined);
@@ -77,6 +77,44 @@ export const Modal: FunctionComponent<ModalPropsType> = ({
           })}
         </div>
       </div>
+      <div className="px-5 flex text-lg items-center gap-2 mb-4">
+        <input
+          type="time"
+          value={startTodo}
+          name="time"
+          onChange={(e) => setStartTodo(e.target.value)}
+        />
+        <Minus />
+        <input
+          type="time"
+          value={endTodo}
+          name="time"
+          onChange={(e) => setendTodo(e.target.value)}
+        />
+      </div>
+      <button
+        onClick={
+          !defaultInputValue
+            ? () => {
+                addTodoHandler({
+                  startTime: startTodo,
+                  endTime: endTodo,
+                  title: inputValue,
+                  category: selectedCategory,
+                });
+                setInputValue("");
+              }
+            : () => {
+                if (dateForAddTask) {
+                  editTodoHandler(dateForAddTask, inputValue);
+                }
+                setInputValue("");
+              }
+        }
+        className="ml-52 bg-[#94a3b8] px-3 py-2 w-24 text-[18px] text-white rounded"
+      >
+        {!defaultInputValue ? "Add" : "Edit"}
+      </button>
     </div>
   );
 };

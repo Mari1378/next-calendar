@@ -25,6 +25,12 @@ export type OnOpenModalForEditHandlerArgsType = {
   Date: TodoType[number]["Date"];
   id: TodoType[number]["id"];
 };
+export type AddTodoHandlerType = {
+  category: TodoType[number]["category"];
+  endTime: TodoType[number]["endTime"];
+  startTime: TodoType[number]["startTime"];
+  title: TodoType[number]["title"];
+};
 const initialTodo: TodoType = [];
 export const Rightside: FunctionComponent<RightsidePropsType> = ({
   setCurrentDate,
@@ -46,7 +52,7 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
     endTime,
     startTime,
     title,
-  }: TodoType[number]) => {
+  }: AddTodoHandlerType) => {
     if (title && dateForAddTask) {
       dispatch({
         type: "ADD",
