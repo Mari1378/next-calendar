@@ -22,7 +22,6 @@ export const MakeCategory: FunctionComponent<MakeCategoryPropsType> = ({
   const [value, setValue] = useState("");
   const [color, setColor] = useState("#00FA6C");
   //   ...................................................
-
   const onDeleteCategoryHandler = (id: string) => {
     const newCategory = category.filter((item) => {
       return item.id !== id;

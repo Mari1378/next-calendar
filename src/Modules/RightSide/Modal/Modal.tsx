@@ -23,6 +23,7 @@ export const Modal: FunctionComponent<ModalPropsType> = ({
   const onCloseModalHandler = () => {
     setDateForAddTask(undefined);
     setInputValue("");
+    setTitleOfTaskForEdit("");
   };
 
   // ............................................

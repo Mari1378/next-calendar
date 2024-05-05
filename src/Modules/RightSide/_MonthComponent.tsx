@@ -7,6 +7,7 @@ import {
   OnOpenModalForEditHandlerArgsType,
   OnOpenModalHandlerArgType,
 } from "./Rightside";
+import { colorWithLowOpacity } from "@/utils/Color";
 export type MonthAndDayComponentPropsType = {
   currentDate: dayjs.Dayjs;
   selectedDate: dayjs.Dayjs;
@@ -64,7 +65,7 @@ export const MonthComponent: FunctionComponent<
                       onOpenModalHandler({ Date: day });
                     }
                   }}
-                  className="text-l cursor-pointer text-gray-900 font-thin border border-gray-200  w-full flex items-center p-1 flex-col "
+                  className="text-l cursor-pointer text-gray-900 font-thin border border-gray-200 gap-1 w-full flex items-center p-1 flex-col "
                 >
                   <p
                     style={
@@ -83,7 +84,7 @@ export const MonthComponent: FunctionComponent<
                   >
                     {day ? day.get("D") : null}
                   </p>
-                  <ul>
+                  <ul className="w-28">
                     {" "}
                     {todos.map((todo) => {
                       if (
@@ -101,15 +102,23 @@ export const MonthComponent: FunctionComponent<
                             });
                           }}
                           key={todo.id}
-                          className="flex items-center gap-1"
+                          className="mb-1"
                         >
-                          <div
-                            className="w-4 h-4 rounded-2xl"
+                          <p
                             style={{
-                              backgroundColor: todo.category.color,
+                              color: colorWithLowOpacity(
+                                todo.category.color
+                              ).isLight()
+                                ? "black"
+                                : "white",
+                              backgroundColor: colorWithLowOpacity(
+                                todo.category.color
+                              ).toString(),
+                              borderLeft: `4px solid ${todo.category.color}`,
                             }}
-                          ></div>
-                          <p>{todo.title}</p>
+                          >
+                            {todo.title}
+                          </p>
                         </li>
                       );
                     })}

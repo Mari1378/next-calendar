@@ -3,6 +3,7 @@ import { MonthAndDayComponentPropsType } from "./_MonthComponent";
 import dayjs from "dayjs";
 import { v4 as uuid } from "uuid";
 import { difrenceBetweenTwoTime } from "@/utils/Date";
+import { colorWithLowOpacity } from "@/utils/Color";
 
 export const DayComponent: FunctionComponent<MonthAndDayComponentPropsType> = ({
   onOpenModalHandler,
@@ -73,8 +74,15 @@ export const DayComponent: FunctionComponent<MonthAndDayComponentPropsType> = ({
             onClick={() =>
               onOpenModalForEditHandler({ Date: selectedDate, id: todo.id })
             }
-            className="bg-red-300 text-white absolute left-[78px] right-0"
+            className=" absolute left-[78px] right-0 p-2"
             style={{
+              color: colorWithLowOpacity(todo.category.color).isLight()
+                ? "black"
+                : "white",
+              backgroundColor: colorWithLowOpacity(
+                todo.category.color
+              ).toString(),
+              borderLeft: `4px solid ${todo.category.color}`,
               height: `${difrenceBetweenTwoTime(
                 todo.Date,
                 todo.startTime,
