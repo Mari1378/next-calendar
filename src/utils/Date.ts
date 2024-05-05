@@ -32,3 +32,13 @@ export function isToDay(date: dayjs.Dayjs) {
   }
   return false;
 }
+export function difrenceBetweenTwoTime(
+  date: dayjs.Dayjs,
+  start: string,
+  end: string
+) {
+  const startTime = dayjs(`${date.format("YYYY-MM-DD")} ${start}`);
+  const endTime = dayjs(`${date.format("YYYY-MM-DD")} ${end}`);
+  const mins = endTime.diff(startTime, "minutes", true);
+  return mins;
+}

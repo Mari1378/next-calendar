@@ -7,7 +7,7 @@ import {
   OnOpenModalForEditHandlerArgsType,
   OnOpenModalHandlerArgType,
 } from "./Rightside";
-interface MonthComponentPropsType {
+export type MonthAndDayComponentPropsType = {
   currentDate: dayjs.Dayjs;
   selectedDate: dayjs.Dayjs;
   onOpenModalHandler: (params: OnOpenModalHandlerArgType) => void;
@@ -16,9 +16,11 @@ interface MonthComponentPropsType {
     Date,
     id,
   }: OnOpenModalForEditHandlerArgsType) => void;
-}
+};
 
-export const MonthComponent: FunctionComponent<MonthComponentPropsType> = ({
+export const MonthComponent: FunctionComponent<
+  MonthAndDayComponentPropsType
+> = ({
   currentDate,
   selectedDate,
   onOpenModalHandler,

@@ -144,7 +144,13 @@ export const Rightside: FunctionComponent<RightsidePropsType> = ({
           onOpenModalForEditHandler={onOpenModalForEditHandler}
         />
       ) : (
-        <DayComponent />
+        <DayComponent
+          currentDate={currentDate}
+          onOpenModalHandler={onOpenModalHandler}
+          todos={todos}
+          selectedDate={selectedDate}
+          onOpenModalForEditHandler={onOpenModalForEditHandler}
+        />
       )}
       {dateForAddTask ? (
         <Modal
